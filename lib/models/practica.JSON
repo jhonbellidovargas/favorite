@@ -1,0 +1,18 @@
+{
+  "estado": true,
+  "code": 200,
+  "message": "Encontrado",
+  "data": {
+    "delivery_price": 15.15,
+    "producs": [
+      {
+        "id": 1,
+        "product_id": 3,
+        "items": 3,
+        "value_per_unit": 12000,
+        "product_title": "Vitaminas",
+        "product_photos": ["https://url.png", "https://url.png"]
+      }
+    ]
+  }
+}
