@@ -2,17 +2,14 @@
   "estado": true,
   "code": 200,
   "message": "Encontrado",
-  "data": {
-    "delivery_price": 15.15,
-    "producs": [
-      {
-        "id": 1,
-        "product_id": 3,
-        "items": 3,
-        "value_per_unit": 12000,
-        "product_title": "Vitaminas",
-        "product_photos": ["https://url.png", "https://url.png"]
-      }
-    ]
-  }
+  "data": [
+    {
+      "id": 1,
+      "label": "Mi casa",
+      "latitude": -13.2626,
+      "longitude": -74.6527,
+      "address": "Esto es una dirección",
+      "main": true
+    }
+  ]
 }
