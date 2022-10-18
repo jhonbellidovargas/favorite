@@ -23,11 +23,11 @@ class CartController {
 
   Future<dynamic> getCart({int? idUser, int? idOrder}) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/cart'),
+      final response = await http.post(Uri.parse('$backUrl/kilometers/cart'),
           headers: header,
           body: json.encode({
-            "id_user": idUser,
-            "id_order": idOrder,
+            "user_id": idUser,
+            "order_id": idOrder,
           }));
       if (response.statusCode == 200) {
         final data = cartResponseFromMap(response.body);
@@ -42,14 +42,13 @@ class CartController {
     }
   }
 
-  Future<dynamic> addProductToCart(
-      {int? idUser, int? idProduct, int? items}) async {
+  Future<dynamic> addProductToCart(int idUser, int idProduct, int items) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/cart/add'),
+      final response = await http.post(Uri.parse('$backUrl/kilometers/cart'),
           headers: header,
           body: json.encode({
-            "id_user": idUser,
-            "id_product": idProduct,
+            "user_id": idUser,
+            "product_id": idProduct,
             "items": items,
           }));
       if (response.statusCode == 200) {
@@ -65,16 +64,12 @@ class CartController {
     }
   }
 
-  Future<dynamic> removeProductFromCart(
-      {int? idUser, int? idProduct, int? items}) async {
+  Future<dynamic> removeProductFromCart(int id) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/cart/remove'),
-          headers: header,
-          body: json.encode({
-            "id_user": idUser,
-            "id_product": idProduct,
-            "items": items,
-          }));
+      final response = await http.delete(
+        Uri.parse('$backUrl/kilometers/cart/$id'),
+        headers: header,
+      );
       if (response.statusCode == 200) {
         final data = responseModelFromMap(response.body);
         return data;
@@ -88,14 +83,16 @@ class CartController {
     }
   }
 
-  Future<dynamic> updateProductFromCart({int? idProduct, int? items}) async {
+  Future<dynamic> updateProductFromCart(int idProduct, int items) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/cart/update'),
-          headers: header,
-          body: json.encode({
-            "id_product": idProduct,
-            "items": items,
-          }));
+      final response = await http.patch(
+        Uri.parse('$backUrl/kilometers/cart/$idProduct'),
+        headers: header,
+        body: json.encode({
+          "product_id": idProduct,
+          "items": items,
+        }),
+      );
       if (response.statusCode == 200) {
         final data = responseModelFromMap(response.body);
         return data;
@@ -109,13 +106,15 @@ class CartController {
     }
   }
 
-  Future<dynamic> getOrders(int? idUser) async {
+  Future<dynamic> getOrders(int idUser) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/orders'),
-          headers: header,
-          body: json.encode({
-            "id_user": idUser,
-          }));
+      final response = await http.post(
+        Uri.parse('$backUrl/kilometers/orders'),
+        headers: header,
+        body: json.encode({
+          "user_id": idUser,
+        }),
+      );
       if (response.statusCode == 200) {
         final data = ordersListResponseFromMap(response.body);
         return data;
@@ -130,9 +129,9 @@ class CartController {
   }
 
   Future<dynamic> createOrder(
-      int idUser, Bool cashOnDelivery, List<ProductModel> products) async {
+      int idUser, bool cashOnDelivery, List<ProductModel> products) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/orders/create'),
+      final response = await http.post(Uri.parse('$backUrl/kilometers/orders'),
           headers: header,
           body: json.encode({
             "id_user": idUser,
@@ -154,11 +153,12 @@ class CartController {
 
   Future<dynamic> getAddresses(int idUser) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/addresses'),
-          headers: header,
-          body: json.encode({
-            "id_user": idUser,
-          }));
+      final response =
+          await http.post(Uri.parse('$backUrl/kilometers/addresses'),
+              headers: header,
+              body: json.encode({
+                "id_user": idUser,
+              }));
       if (response.statusCode == 200) {
         final data = addressesListResponseFromMap(response.body);
         return data;
@@ -172,18 +172,19 @@ class CartController {
     }
   }
 
-  Future<dynamic> createAddress(int idUser, String label, Double latitud,
-      Double longitude, String address) async {
+  Future<dynamic> createAddress(int idUser, String label, double latitud,
+      double longitude, String address) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/addresses/create'),
-          headers: header,
-          body: json.encode({
-            "id_user": idUser,
-            "label": label,
-            "latitud": latitud,
-            "longitude": longitude,
-            "address": address,
-          }));
+      final response =
+          await http.post(Uri.parse('$backUrl/kilometers/addresses'),
+              headers: header,
+              body: json.encode({
+                "id_user": idUser,
+                "label": label,
+                "latitud": latitud,
+                "longitude": longitude,
+                "address": address,
+              }));
       if (response.statusCode == 200) {
         final data = responseModelFromMap(response.body);
         return data;
@@ -197,18 +198,20 @@ class CartController {
     }
   }
 
-  Future<dynamic> updateAddress(int idUser, String label, Double latitud,
-      Double longitude, Bool main) async {
+  Future<dynamic> updateAddress(int idUser, String label, double latitud,
+      double longitude, bool main) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/addresses/update'),
-          headers: header,
-          body: json.encode({
-            "id_user": idUser,
-            "label": label,
-            "latitud": latitud,
-            "longitude": longitude,
-            "main": main,
-          }));
+      final response = await http.patch(
+        Uri.parse('$backUrl/kilometers/addresses/$idUser'),
+        headers: header,
+        body: json.encode({
+          "id_user": idUser,
+          "label": label,
+          "latitud": latitud,
+          "longitude": longitude,
+          "main": main,
+        }),
+      );
       if (response.statusCode == 200) {
         final data = responseModelFromMap(response.body);
         return data;
@@ -221,6 +224,4 @@ class CartController {
       return ErrorResponse.unknown;
     }
   }
-
-  // Future<dynamic> deleteAddress(
 }

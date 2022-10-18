@@ -91,13 +91,11 @@ class BusinessController {
     }
   }
 
-  Future<dynamic> getProductDetail(int idProduct) async {
+  Future<dynamic> getProduct(int idProduct) async {
     try {
-      final response = await http.post(Uri.parse('$backUrl/kilometers/product'),
-          headers: header,
-          body: json.encode({
-            "id_product": idProduct,
-          }));
+      final response = await http.get(
+          Uri.parse('$backUrl/kilometers/product/$idProduct'),
+          headers: header);
       if (response.statusCode == 200) {
         final data = productDetailResponseFromMap(response.body);
         return data;
