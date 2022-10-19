@@ -29,7 +29,7 @@ class GeneralProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    business = data as List<BusinessModel>;
+    business = data.data as List<BusinessModel>;
   }
 
   List<CategoryModel> categories = [];
@@ -47,7 +47,8 @@ class GeneralProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    categories = data as List<CategoryModel>;
+    categories = data.data as List<CategoryModel>;
+    notifyListeners();
     return categories;
   }
 
@@ -71,7 +72,8 @@ class GeneralProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    products = data as List<ProductModel>;
+    products = data.data as List<ProductModel>;
+    notifyListeners();
     return products;
   }
 
