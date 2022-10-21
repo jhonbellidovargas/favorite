@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'KiloMeters',
-          initialRoute: 'cart',
+          initialRoute: 'home',
+          // initialRoute: 'cart',
           routes: {
             'home': (_) => const HomeKilometersPage(),
             'details': (_) => const ProductDetailsPage(),
