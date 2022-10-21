@@ -169,7 +169,31 @@ class BusinessController {
         final data = productDetailResponseFromMap(response.body);
         return data;
       } else {
-        return ErrorResponse(statusCode: 400, message: "No encontrado");
+        // return ErrorResponse(statusCode: 400, message: "No encontrado");
+        return ProductDetailResponse(
+            estado: true,
+            code: 200,
+            message: "",
+            data: ProductModel(
+              id: 1,
+              title: "Producto 1",
+              value: 2,
+              shortDescription: "Descripcion corta",
+              longDescription: "Descripcion larga",
+              photos: [
+                "https://www.latercera.com/resizer/7n1Jgn-jZAyn7X-Vv3fRj_U_Fzs=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/KHQALCJNFZHU3GRYSID637CQ7Y.jpg"
+              ],
+              available: 1,
+              rates: [
+                Rate(
+                  rate: 2,
+                  userName: 'Usuario 1',
+                  userPhoto: 'userPhoto',
+                  date: '2021-01-01',
+                  comentary: 'Comentario',
+                )
+              ],
+            ));
       }
     } on SocketException {
       return ErrorResponse.network;

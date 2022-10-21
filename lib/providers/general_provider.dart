@@ -94,18 +94,18 @@ class GeneralProvider extends ChangeNotifier {
     productLoading = false;
     productError = false;
     notifyListeners();
-    product = data as ProductModel;
+    product = data.data as ProductModel;
     return product;
   }
 
   CartModel? cart;
   bool cartLoading = false;
   bool cartError = false;
-  Future<dynamic> getCart() async {
+  Future<dynamic> getCart(int idUser, int idOrder) async {
     cartLoading = true;
     cartError = false;
     notifyListeners();
-    final data = await cartController.getCart();
+    final data = await cartController.getCart(idUser, idOrder);
     if (data is ErrorResponse) {
       cartError = true;
       cartLoading = false;
@@ -114,8 +114,8 @@ class GeneralProvider extends ChangeNotifier {
     }
     cartLoading = false;
     cartError = false;
+    cart = data.data as CartModel;
     notifyListeners();
-    cart = data as CartModel;
     return cart;
   }
 
@@ -189,7 +189,7 @@ class GeneralProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    orders = data as List<OrderModel>;
+    orders = data.data as List<OrderModel>;
     return orders;
   }
 

@@ -191,20 +191,25 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
                     Column(
                       children: generalProvider.products
                           .map(
-                            (e) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GeneralImage(
-                                  width: mqHeigth(context, 20),
-                                  height: mqHeigth(context, 25),
-                                  url: '',
-                                  borderRadius: 20,
-                                ),
-                                const VSpacing(1),
-                                Text(e.title),
-                                const VSpacing(1),
-                                Text(e.longDescription),
-                              ],
+                            (e) => GestureDetector(
+                              onTap: () => Navigator.pushNamed(
+                                  context, 'details',
+                                  arguments: e),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  GeneralImage(
+                                    width: mqHeigth(context, 20),
+                                    height: mqHeigth(context, 25),
+                                    url: '',
+                                    borderRadius: 20,
+                                  ),
+                                  const VSpacing(1),
+                                  Text(e.title),
+                                  const VSpacing(1),
+                                  Text(e.longDescription),
+                                ],
+                              ),
                             ),
                           )
                           .toList(),

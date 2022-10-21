@@ -19,8 +19,7 @@ const commonTextStyle = TextStyle(
 );
 
 const textStyleBlackFav = TextStyle(
-  fontWeight: FontWeight.w100,
-  color: Color.fromARGB(255, 91, 81, 81),
-  fontSize: 13,
-  height: 1
-);
+    fontWeight: FontWeight.w100,
+    color: Color.fromARGB(255, 91, 81, 81),
+    fontSize: 13,
+    height: 1);

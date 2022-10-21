@@ -8,14 +8,13 @@ class HomeKilometersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: mqHeigth(context, 100),
-        child: PageView(
-          children: [
-            HomeCategoriesPage(),
-          ],
-        ),
-      )
-    );
+        body: Container(
+      height: mqHeigth(context, 100),
+      child: PageView(
+        children: [
+          HomeCategoriesPage(),
+        ],
+      ),
+    ));
   }
 }

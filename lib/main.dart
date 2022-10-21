@@ -1,4 +1,6 @@
+import 'package:favorite/pages/cart_page.dart';
 import 'package:favorite/pages/home_kilometers_page.dart';
+import 'package:favorite/pages/product_details_page.dart';
 import 'package:favorite/providers/general_provider.dart';
 import 'package:favorite/widgets/common/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +17,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => GeneralProvider()),
       ],
-      child:
-          const MaterialApp(title: 'Material App', home: HomeKilometersPage()),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'KiloMeters',
+          initialRoute: 'cart',
+          routes: {
+            'home': (_) => const HomeKilometersPage(),
+            'details': (_) => const ProductDetailsPage(),
+            'cart': (_) => const CartPage(),
+          }),
     );
   }
 }
