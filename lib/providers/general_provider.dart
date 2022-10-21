@@ -178,7 +178,6 @@ class GeneralProvider extends ChangeNotifier {
   bool ordersLoading = false;
   bool ordersError = false;
   Future<dynamic> getOrders(int idUser) async {
-    if (orders.isNotEmpty) return;
     ordersLoading = true;
     ordersError = false;
     notifyListeners();
@@ -189,7 +188,10 @@ class GeneralProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    ordersLoading = false;
+    ordersError = false;
     orders = data.data as List<OrderModel>;
+    notifyListeners();
     return orders;
   }
 
