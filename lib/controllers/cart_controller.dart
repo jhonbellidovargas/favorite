@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:favorite/models/address_model.dart';
 import 'package:favorite/models/cart_model.dart';
+import 'package:favorite/models/cart_product_model.dart';
 import 'package:favorite/models/error_response.dart';
 import 'package:favorite/models/orders_model.dart';
 import 'package:favorite/models/product_model.dart';
@@ -13,8 +13,6 @@ import 'package:favorite/models/responses/cart_response.dart';
 import 'package:favorite/models/responses/orders_list_response.dart';
 import 'package:favorite/utils/urls.dart';
 import 'package:http/http.dart' as http;
-
-import '../models/rate_model.dart';
 
 class CartController {
   CartController._privateConstructor();
@@ -44,45 +42,21 @@ class CartController {
             code: 200,
             message: "",
             data: CartModel(deliveryPrice: 2.5, producs: [
-              ProductModel(
+              CartProductModel(
                 id: 1,
-                title: "Producto 1",
-                value: 2,
-                shortDescription: "Descripcion corta",
-                longDescription: "Descripcion larga",
-                photos: [
-                  "https://www.latercera.com/resizer/7n1Jgn-jZAyn7X-Vv3fRj_U_Fzs=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/KHQALCJNFZHU3GRYSID637CQ7Y.jpg"
-                ],
-                available: 1,
-                rates: [
-                  Rate(
-                    rate: 2,
-                    userName: 'Usuario 1',
-                    userPhoto: 'userPhoto',
-                    date: '2021-01-01',
-                    comentary: 'Comentario',
-                  )
-                ],
+                productId: 1,
+                productTitle: "Producto 1",
+                valuePerUnit: 2,
+                productPhotos: ["https://picsum.photos/200"],
+                items: 1,
               ),
-              ProductModel(
+              CartProductModel(
                 id: 2,
-                title: "Producto 2",
-                value: 2,
-                shortDescription: "Descripcion corta",
-                longDescription: "Descripcion larga",
-                photos: [
-                  "https://www.latercera.com/resizer/7n1Jgn-jZAyn7X-Vv3fRj_U_Fzs=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/KHQALCJNFZHU3GRYSID637CQ7Y.jpg"
-                ],
-                available: 1,
-                rates: [
-                  Rate(
-                    rate: 2,
-                    userName: 'Usuario 1',
-                    userPhoto: 'userPhoto',
-                    date: '2021-01-01',
-                    comentary: 'Comentario',
-                  )
-                ],
+                productId: 2,
+                productTitle: "Producto 2",
+                valuePerUnit: 2,
+                productPhotos: ["https://picsum.photos/200"],
+                items: 3,
               ),
             ]));
       }

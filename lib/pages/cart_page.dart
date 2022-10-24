@@ -1,5 +1,5 @@
 import 'package:favorite/models/cart_model.dart';
-import 'package:favorite/models/product_model.dart';
+import 'package:favorite/models/cart_product_model.dart';
 import 'package:favorite/providers/general_provider.dart';
 import 'package:favorite/utils/styles.dart';
 import 'package:favorite/utils/utils.dart';
@@ -34,9 +34,10 @@ class _CartPageState extends State<CartPage> {
     final generalProvider = Provider.of<GeneralProvider>(context);
     totalPrice = generalProvider.cart != null
         ? generalProvider.cart!.producs.fold(
-            0, (previousValue, element) => previousValue + (element.value))
+            0,
+            (previousValue, element) =>
+                previousValue + (element.valuePerUnit * element.items))
         : 0;
-    // si la cartloading es true, entonces se muestra el loading
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -116,6 +117,11 @@ class _CartPageState extends State<CartPage> {
                                         itemCount: generalProvider
                                             .cart!.producs.length,
                                         itemBuilder: (context, index) {
+                                          if (generalProvider.cartLoading) {
+                                            return const Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          }
                                           return _CartItem(
                                               generalProvider
                                                   .cart!.producs[index],
@@ -179,11 +185,21 @@ class _CartPageState extends State<CartPage> {
   }
 }
 
-class _CartItem extends StatelessWidget {
-  final ProductModel product;
+class _CartItem extends StatefulWidget {
+  final CartProductModel product;
   final int index;
 
   const _CartItem(this.product, this.index);
+
+  @override
+  State<_CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<_CartItem> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -206,29 +222,30 @@ class _CartItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            height: mqHeigth(context, 18),
+            height: mqHeigth(context, 14),
             width: mqWidth(context, 24),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
-                    image: NetworkImage(product.photos[0]), fit: BoxFit.cover)),
+                    image: NetworkImage(widget.product.productPhotos[0]),
+                    fit: BoxFit.cover)),
           ),
           Container(
             width: mqWidth(context, 50),
-            height: mqHeigth(context, 15),
+            height: mqHeigth(context, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.title,
+                  widget.product.productTitle,
                 ),
                 Text(
-                  '${product.value}',
+                  '${widget.product.valuePerUnit}',
                 ),
                 Container(
                   width: mqWidth(context, 25),
-                  height: mqHeigth(context, 7),
+                  height: mqHeigth(context, 5),
                   padding: EdgeInsets.symmetric(
                       vertical: mqHeigth(context, 1),
                       horizontal: mqWidth(context, 1)),
@@ -240,7 +257,15 @@ class _CartItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          if (widget.product.items == 1) {
+                            generalProvider
+                                .removeProductFromCart(widget.product.id);
+                          } else {
+                            generalProvider.updateProductFromCart(
+                                widget.product.id, widget.product.items + 1);
+                          }
+                        },
                         child: const Icon(
                           Icons.remove,
                           color: Colors.black,
@@ -248,11 +273,14 @@ class _CartItem extends StatelessWidget {
                       ),
                       HSpacing(mqWidth(context, 2)),
                       Text(
-                        '${product.value}',
+                        '${widget.product.items}',
                       ),
                       HSpacing(mqWidth(context, 2)),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          generalProvider.updateProductFromCart(
+                              widget.product.id, widget.product.items + 1);
+                        },
                         child: const Icon(
                           Icons.add,
                           color: Colors.black,
@@ -267,7 +295,9 @@ class _CartItem extends StatelessWidget {
           Column(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  generalProvider.removeProductFromCart(widget.product.id);
+                },
                 child: const Icon(
                   Icons.delete_outline,
                   color: Colors.orange,

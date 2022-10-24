@@ -2,6 +2,7 @@ import 'package:favorite/pages/cart_page.dart';
 import 'package:favorite/pages/home_kilometers_page.dart';
 import 'package:favorite/pages/orders_page.dart';
 import 'package:favorite/pages/product_details_page.dart';
+import 'package:favorite/pages/profile_page.dart';
 import 'package:favorite/providers/general_provider.dart';
 import 'package:favorite/providers/ui_provider.dart';
 import 'package:favorite/widgets/common/scaffold_wrapper.dart';
@@ -25,15 +26,17 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'KiloMeters',
-          initialRoute: 'home',
-          routes: {
-            'home': (_) => const HomeKilometersPage(),
-            'details': (_) => const ProductDetailsPage(),
-            'cart': (_) => const CartPage(),
-            'orders': (_) => const OrdersPage(),
-          }),
+        debugShowCheckedModeBanner: false,
+        title: 'KiloMeters',
+        initialRoute: 'home',
+        routes: {
+          'home': (context) => const HomeKilometersPage(),
+          'details': (context) => const ProductDetailsPage(),
+          'cart': (context) => const CartPage(),
+          'orders': (context) => const OrdersPage(),
+          'profile': (context) => const ProfilePage()
+        },
+      ),
     );
   }
 }

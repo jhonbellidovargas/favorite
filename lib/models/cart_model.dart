@@ -1,4 +1,4 @@
-import 'package:favorite/models/product_model.dart';
+import 'package:favorite/models/cart_product_model.dart';
 
 class CartModel {
   CartModel({
@@ -7,12 +7,12 @@ class CartModel {
   });
 
   double deliveryPrice;
-  List<ProductModel> producs;
+  List<CartProductModel> producs;
 
   factory CartModel.fromMap(Map<String, dynamic> json) => CartModel(
         deliveryPrice: json["delivery_price"].toDouble() ?? 0.0,
-        producs: List<ProductModel>.from(
-            json["producs"].map((x) => ProductModel.fromMap(x))),
+        producs: List<CartProductModel>.from(
+            json["producs"].map((x) => CartProductModel.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {

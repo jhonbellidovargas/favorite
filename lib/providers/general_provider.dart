@@ -230,7 +230,11 @@ class GeneralProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    addresses = data as List<AddressModel>;
+    addressesLoading = false;
+    addressesError = false;
+    addresses = data.data as List<AddressModel>;
+
+    notifyListeners();
     return addresses;
   }
 
