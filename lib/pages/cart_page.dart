@@ -231,8 +231,11 @@ class _CartItemState extends State<_CartItem> {
                     fit: BoxFit.cover)),
           ),
           Container(
-            width: mqWidth(context, 50),
-            height: mqHeigth(context, 10),
+            width: mqWidth(context, 48),
+            height: mqHeigth(context, 14),
+            padding: EdgeInsets.symmetric(
+                vertical: mqHeigth(context, 1),
+                horizontal: mqWidth(context, 2)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -277,4 +277,22 @@ class GeneralProvider extends ChangeNotifier {
     ResponseModel response = data as ResponseModel;
     return response;
   }
+
+  Future<dynamic> deleteAddress(int id) async {
+    addressesLoading = true;
+    addressesError = false;
+    notifyListeners();
+    final data = await cartController.deleteAddress(id);
+    if (data is ErrorResponse) {
+      addressesError = true;
+      addressesLoading = false;
+      notifyListeners();
+      return;
+    }
+    addressesLoading = false;
+    addressesError = false;
+    notifyListeners();
+    ResponseModel response = data as ResponseModel;
+    return response;
+  }
 }

@@ -272,4 +272,23 @@ class CartController {
       return ErrorResponse.unknown;
     }
   }
+
+  Future<dynamic> deleteAddress(int idUser) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('$backUrl/kilometers/addresses/$idUser'),
+        headers: header,
+      );
+      if (response.statusCode == 200) {
+        final data = responseModelFromMap(response.body);
+        return data;
+      } else {
+        return ErrorResponse(statusCode: 400, message: "No encontrado");
+      }
+    } on SocketException {
+      return ErrorResponse.network;
+    } catch (_) {
+      return ErrorResponse.unknown;
+    }
+  }
 }

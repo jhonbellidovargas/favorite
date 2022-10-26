@@ -1,3 +1,4 @@
+import 'package:favorite/pages/address_edit_page.dart';
 import 'package:favorite/pages/cart_page.dart';
 import 'package:favorite/pages/home_kilometers_page.dart';
 import 'package:favorite/pages/orders_page.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           'details': (context) => const ProductDetailsPage(),
           'cart': (context) => const CartPage(),
           'orders': (context) => const OrdersPage(),
-          'profile': (context) => const ProfilePage()
+          'profile': (context) => const ProfilePage(),
+          'address': (context) => const AddressPage(),
         },
       ),
     );
