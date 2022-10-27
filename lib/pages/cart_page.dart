@@ -58,12 +58,10 @@ class _CartPageState extends State<CartPage> {
               'Mi Carrito',
               style: TextStyle(color: Colors.black),
             ),
-            const VSpacing(10),
             GeneralImage(
                 height: mqHeigth(context, 5),
-                width: mqWidth(context, 40),
+                width: mqWidth(context, 10),
                 url: ''),
-            const NotificationIcon()
           ],
         ),
       ),
@@ -89,8 +87,9 @@ class _CartPageState extends State<CartPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
+                            height: mqHeigth(context, 6),
                             padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
+                                vertical: 15, horizontal: 20),
                             width: double.infinity,
                             color: Colors.yellow,
                             child: Text(

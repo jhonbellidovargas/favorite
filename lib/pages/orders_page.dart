@@ -68,44 +68,67 @@ class _OrderCard extends StatelessWidget {
           color: Colors.yellow,
         ),
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Número de orden'),
-                Text(
-                  order.id.toString(),
-                ),
+                const Text('Número de orden',
+                    style: TextStyle(fontSize: 12, color: Colors.blueAccent)),
+                Text(order.id.toString(),
+                    style: const TextStyle(
+                        fontSize: 20, color: Colors.blueAccent)),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text('Fecha de compra'),
-                // Fecha formateada a 16 de marzo de 2021
+                const Text('Fecha de compra',
+                    style: TextStyle(fontSize: 12, color: Colors.blueAccent)),
                 Text(
-                    '${order.createdAt.day} de ${order.createdAt.month} de ${order.createdAt.year}'),
+                  '${order.createdAt.day} de ${order.createdAt.month} de ${order.createdAt.year}',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.blueAccent,
+                  ),
+                ),
               ],
             ),
             Column(
               children: [
-                // Se muestra el estado con fondo naranja redondeado y texto centrado
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   width: 100,
                   decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: order.state == '1'
+                          ? Colors.green
+                          : order.state == '2'
+                              ? Colors.orange
+                              : Colors.grey,
                       borderRadius: BorderRadius.circular(20)),
                   child: Center(
                     child: Text(
-                      order.state,
+                      order.state == '1'
+                          ? 'Procesando'
+                          : order.state == '2'
+                              ? 'Entregado'
+                              : 'Cancelado',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-
-                Text('Total ${order.totalValiue} Kms'),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Total ${order.totalValiue} Kms',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.blueAccent,
+                  ),
+                )
               ],
             )
           ],

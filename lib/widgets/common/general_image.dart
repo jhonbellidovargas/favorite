@@ -15,62 +15,57 @@ class GeneralImage extends StatelessWidget {
   final bool fromMemory;
   final File? file;
 
-  const GeneralImage({
-    Key? key,
-    this.width,
-    this.height,
-    required this.url,
-    this.fit,
-    this.fromLocal = false,
-    this.fromMemory = false,
-    this.borderRadius = 0,
-    this.bgColor, 
-    this.text,
-    this.file
-  }): super(key: key);
+  const GeneralImage(
+      {Key? key,
+      this.width,
+      this.height,
+      required this.url,
+      this.fit,
+      this.fromLocal = false,
+      this.fromMemory = false,
+      this.borderRadius = 0,
+      this.bgColor,
+      this.text,
+      this.file})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: bgColor, 
-        borderRadius: BorderRadius.circular(borderRadius)
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: fromMemory ? 
-        Image.file(
-          file!,
-          fit: fit,
-          width: width,
-          height: height,
-        ) :
-        !fromLocal
-        ? (url.isEmpty
-          ? Image.asset(
-              notFoundImage,
-              width: width,
-              height: height,
-              fit: BoxFit.fill,
-            )
-          : FadeInImage(
-            width: width,
-            height: height,
-            fit: fit,
-            placeholder: const AssetImage(loadingImage), 
-            image: NetworkImage(
-              url,
-            )
-          ) 
-        ) : Image.asset(
-          url,
-          fit: fit,
-          width: width,
-          height: height,
-        )
-      )
-    );
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+            color: bgColor, borderRadius: BorderRadius.circular(borderRadius)),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(borderRadius),
+            child: fromMemory
+                ? Image.file(
+                    file!,
+                    fit: fit,
+                    width: width,
+                    height: height,
+                  )
+                : !fromLocal
+                    ? (url.isEmpty
+                        ? Image.asset(
+                            notFoundImage,
+                            width: width,
+                            height: height,
+                            fit: BoxFit.fill,
+                          )
+                        : FadeInImage(
+                            width: width,
+                            height: height,
+                            fit: fit,
+                            placeholder: const AssetImage(loadingImage),
+                            image: NetworkImage(
+                              url,
+                            )))
+                    : Image.asset(
+                        url,
+                        fit: fit,
+                        width: width,
+                        height: height,
+                      )));
   }
 }

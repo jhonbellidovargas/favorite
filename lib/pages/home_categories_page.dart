@@ -78,7 +78,10 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
                             ),
                             Column(
                               children: [
-                                const Text('14.5K'),
+                                const Text('14.5K',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
                                 Container(
                                   height: mqHeigth(context, 1),
                                   width: mqWidth(context, 20),
@@ -131,8 +134,7 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
                           ]),
                       child: IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                            size: 20),
+                        icon: const Icon(Icons.tune, size: 25),
                       ),
                     ),
                   )
@@ -149,6 +151,7 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
                           width: mqWidth(context, 70),
                           url: e.photoUrl,
                           borderRadius: 10,
+                          fit: BoxFit.cover,
                         ),
                       )
                       .toList(),
@@ -160,19 +163,25 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
                 child: Row(
                   children: generalProvider.categories
                       .map(
-                        (e) => Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.grey,
-                              maxRadius: mqHeigth(context, 4),
-                              child: const Icon(
-                                Icons.access_alarm_sharp,
-                                color: Colors.black,
+                        (e) => Container(
+                          margin: EdgeInsets.only(
+                              left: mqWidth(context, 2),
+                              right: mqWidth(context, 2)),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.grey,
+                                maxRadius: mqHeigth(context, 4),
+                                child: const Icon(
+                                  Icons.access_alarm_sharp,
+                                  color: Colors.black,
+                                  size: 30,
+                                ),
                               ),
-                            ),
-                            const VSpacing(1),
-                            Text(e.label)
-                          ],
+                              const VSpacing(1),
+                              Text(e.label)
+                            ],
+                          ),
                         ),
                       )
                       .toList(),
@@ -181,7 +190,7 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
               const VSpacing(2),
               Padding(
                 padding: EdgeInsets.only(left: mqWidth(context, 8)),
-                child: const Text('Populares'),
+                child: const Text('Populares', style: TextStyle(fontSize: 20)),
               ),
               const VSpacing(2),
               Padding(
@@ -195,20 +204,38 @@ class _HomeCategoriesPageState extends State<HomeCategoriesPage> {
                               onTap: () => Navigator.pushNamed(
                                   context, 'details',
                                   arguments: e),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  GeneralImage(
-                                    width: mqHeigth(context, 20),
-                                    height: mqHeigth(context, 25),
-                                    url: '',
-                                    borderRadius: 20,
-                                  ),
-                                  const VSpacing(1),
-                                  Text(e.title),
-                                  const VSpacing(1),
-                                  Text(e.longDescription),
-                                ],
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    bottom: mqHeigth(context, 2)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: mqHeigth(context, 20),
+                                      width: mqWidth(context, 40),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.white,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.grey,
+                                                spreadRadius: 0.5,
+                                                blurRadius: 18)
+                                          ]),
+                                      child: GeneralImage(
+                                        width: mqHeigth(context, 20),
+                                        height: mqHeigth(context, 25),
+                                        url: e.photos[0],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    const VSpacing(1),
+                                    Text(e.title),
+                                    const VSpacing(1),
+                                    Text(e.longDescription),
+                                  ],
+                                ),
                               ),
                             ),
                           )

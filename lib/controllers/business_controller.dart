@@ -86,15 +86,27 @@ class BusinessController {
             data: [
               CategoryModel(
                 id: 1,
-                label: "Categoria 1",
+                label: "Popular",
                 enabled: true,
                 icon: 1,
               ),
               CategoryModel(
                 id: 2,
-                label: "Categoria 2",
+                label: "Western",
                 enabled: true,
                 icon: 2,
+              ),
+              CategoryModel(
+                id: 3,
+                label: "Drinks",
+                enabled: true,
+                icon: 3,
+              ),
+              CategoryModel(
+                id: 4,
+                label: "Local",
+                enabled: true,
+                icon: 4,
               ),
             ]);
       }
@@ -138,7 +150,34 @@ class BusinessController {
                 shortDescription: "Descripcion corta",
                 longDescription: "Descripcion larga",
                 photos: [
-                  "https://www.latercera.com/resizer/7n1Jgn-jZAyn7X-Vv3fRj_U_Fzs=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/KHQALCJNFZHU3GRYSID637CQ7Y.jpg"
+                  "https://s3.amazonaws.com/imagenes-sellers-mercado-ripley/2020/05/27173712/98B315_0.jpg"
+                ],
+                available: 1,
+                rates: [
+                  Rate(
+                    rate: 2,
+                    userName: 'Usuario 1',
+                    userPhoto: 'https://i.imgur.com/BoN9kdC.png',
+                    date: '2021-01-01',
+                    comentary: 'Comentario',
+                  ),
+                  Rate(
+                    rate: 4,
+                    userName: 'Usuario 2',
+                    userPhoto: 'https://i.imgur.com/D5wcicT.jpeg',
+                    date: '2021-01-01',
+                    comentary: 'Comentario',
+                  ),
+                ],
+              ),
+              ProductModel(
+                id: 2,
+                title: "Producto 2",
+                value: 2,
+                shortDescription: "Descripcion corta",
+                longDescription: "Descripcion larga",
+                photos: [
+                  "https://home.ripley.com.pe/Attachment/WOP_5/2005297867853/2005297867853_2.jpg"
                 ],
                 available: 1,
                 rates: [
@@ -150,7 +189,7 @@ class BusinessController {
                     comentary: 'Comentario',
                   )
                 ],
-              )
+              ),
             ]);
       }
     } on SocketException {

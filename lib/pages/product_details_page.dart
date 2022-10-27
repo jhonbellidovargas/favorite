@@ -44,7 +44,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final generalProvider = Provider.of<GeneralProvider>(context);
 
     return ScaffoldWrapper(
-      // si cartLoading es true mostrar un circular progress indicator
       body: SafeArea(
           child: generalProvider.cartLoading
               ? const Center(child: CircularProgressIndicator())
@@ -72,7 +71,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               child: Padding(
                                   padding: const EdgeInsets.only(left: 12),
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
                                     icon: const Icon(
                                         Icons.arrow_back_ios_new_rounded,
                                         size: 20),
@@ -137,11 +138,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                       const VSpacing(2),
                       Container(
+                        width: double.infinity,
                         margin: EdgeInsets.only(
                             left: mqWidth(context, 4),
                             right: mqWidth(context, 10)),
-                        child: Text(product.title,
-                            style: sectionSubtitleTextStyle),
+                        child: Text(
+                          product.title,
+                          style: sectionSubtitleTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       const VSpacing(0.5),
                       Container(
@@ -161,12 +166,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       const VSpacing(1),
                       Container(
                         margin: EdgeInsets.only(
-                          left: mqWidth(context, 7),
-                        ),
-                        child: const Text(
-                          'Descripción',
-                          style: TextStyle(
-                              color: Colors.amber, fontWeight: FontWeight.w500),
+                            left: mqWidth(context, 7),
+                            right: mqWidth(context, 7)),
+                        width: double.infinity,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              'Descripción',
+                              style: TextStyle(
+                                  color: Colors.amber,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Icon(Icons.keyboard_arrow_down_rounded,
+                                size: 20, color: Colors.blue)
+                          ],
                         ),
                       ),
                       Padding(
@@ -200,10 +214,76 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           color: Colors.grey,
                         ),
                       ),
+                      product.rates.isEmpty
+                          ? Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: mqWidth(context, 7)),
+                              child: const Text(
+                                'No hay calificaciones',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            )
+                          // mapear los rates
+                          : Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: mqWidth(context, 7)),
+                              child: Column(
+                                children: product.rates
+                                    .map(
+                                      (e) => Container(
+                                          width: double.infinity,
+                                          padding: EdgeInsets.only(
+                                              right: mqWidth(context, 7)),
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 20,
+                                                backgroundImage:
+                                                    NetworkImage(e.userPhoto),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: List.generate(
+                                                        5,
+                                                        (index) => Icon(
+                                                              Icons.star,
+                                                              color: index <
+                                                                      e.rate
+                                                                  ? Colors.amber
+                                                                  : Colors.grey,
+                                                              size: 20,
+                                                            )),
+                                                  ),
+                                                  Text(
+                                                    e.userName,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                  ),
+                                                  Text(
+                                                    e.comentary,
+                                                    style: textStyleBlackFav,
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          )),
+                                    )
+                                    .toList(),
+                              )),
                       Container(
                         padding: EdgeInsets.symmetric(
                             vertical: mqHeigth(context, 2),
-                            horizontal: mqWidth(context, 5)),
+                            horizontal: mqWidth(context, 7)),
                         margin: EdgeInsets.symmetric(
                             vertical: mqHeigth(context, 1)),
                         decoration: BoxDecoration(
